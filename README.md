@@ -25,7 +25,7 @@ The dataset includes:
 
 * 545 water volume CSV files.
 * 395 water pressure CSV files.
-* Data collected from multiple campus water meters.
+* Data collected from multiple campus water meters and pressure sensors.
 * Hourly measurements that were converted into daily values for analysis.
 
 ## Project Workflow
