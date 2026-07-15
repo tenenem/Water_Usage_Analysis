@@ -109,4 +109,4 @@ This project demonstrates skills in:
 
 BTech in Computer Systems Engineering
 
-GitHub: [https://github.com/tenenem](https://github.com/tenenem)
+GitHub: @tenenem
