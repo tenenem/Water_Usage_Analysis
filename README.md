@@ -1,113 +1,112 @@
-# Campus Water Infrastructure: Predictive Modelling & Sensor Health Diagnostics
+# Campus Water Infrastructure: Predictive Modelling & Sensor Health
 
-> **End-to-end Python pipeline for forecasting daily water usage and automatically diagnosing sensor health across 13 campus meter points.**
+## Project Overview
 
+This project analyses historical campus water data using Python and machine learning. The data is cleaned, combined, and prepared to predict the next day's water volume and water pressure. The project also includes a sensor health check to identify water meters that may be inactive or unreliable.
 
+The project was developed using Python, pandas, NumPy, scikit-learn, matplotlib, and Jupyter Notebook.
 
-## Overview
+## Project Objectives
 
-This project uses historical water pressure and volume data from the **Central University of Technology campus** to:
+The main objectives of this project are to:
 
-1. **Forecast next-day water usage** (volume and pressure) using a Random Forest model
-2. **Diagnose sensor health** — automatically classifying each meter as Active, Partially Active, or Inactive
-
-The data consisted of hourly readings from 13 meter points, stored across hundreds of CSV files with inconsistent naming and formatting.
+* Load and combine water volume and pressure data from multiple CSV files.
+* Clean and prepare the data for analysis.
+* Create new features to improve machine learning predictions.
+* Train Random Forest models to predict the next day's water volume and water pressure.
+* Evaluate the performance of the models.
+* Check the health of the water meters using historical sensor readings.
 
 ## Dataset
 
-| Source | Files | Meter Points |
-|--------|-------|-------------|
-| Volume CSVs | 545 files | 11 campus meters (FNB Stadium, Park Road Gate, Orion, ZR, etc.) |
-| Pressure CSVs | 395 files | 2 pressure sensors (CUT Maintenance Centre, Technikon Residence) |
+The project uses historical water data collected from the Central University of Technology (CUT) campus.
 
-**Total: 940 CSV files** loaded, cleaned, and merged programmatically.
+The dataset includes:
 
+* 545 water volume CSV files.
+* 395 water pressure CSV files.
+* Data collected from multiple campus water meters.
+* Hourly measurements that were converted into daily values for analysis.
 
+## Project Workflow
 
-## Pipeline
+The project follows these main steps:
 
+1. Import the required Python libraries.
+2. Load the water volume and pressure data.
+3. Clean the data and convert the dates.
+4. Combine the datasets into one dataset.
+5. Create time, lag, and rolling average features.
+6. Train Random Forest regression models.
+7. Evaluate the models using MAE and RMSE.
+8. Compare feature importance.
+9. Compare actual and predicted water volume.
+10. Check the health of the water meters.
 
-Raw CSVs (940 files)
-      │
-      ▼
-Load & Merge (os, glob, pandas)
-      │
-      ▼
-Clean & Fix Timestamps (datetime, pandas)
-      │
-      ▼
-Resample to Daily (volume = sum, pressure = mean)
-      │
-      ▼
-Feature Engineering
-  - Lag features: lag1, lag7 (volume & pressure)
-  - Rolling averages: 3-day, 7-day (volume & pressure)
-  - Time features: year, month, day, day-of-week
-      │
-      ▼
-Train Random Forest Regressors
-  - Model 1: Predict next-day Total Volume
-  - Model 2: Predict next-day Total Pressure
-      │
-      ▼
-Sensor Health Diagnostics
-  - Active / Partially Active / Inactive classification
-      │
-      ▼
-Visualisations (matplotlib)
+## Machine Learning
 
+Two Random Forest regression models were developed.
 
+* The first model predicts the next day's total water volume.
+* The second model predicts the next day's average water pressure.
 
+The models were evaluated using:
 
-## Model Results
+* Mean Absolute Error (MAE)
+* Root Mean Squared Error (RMSE)
 
-| Model | MAE | RMSE |
-|-------|-----|------|
-| Random Forest — Volume | 1263.01 | 4344.10 |
-| Random Forest — Pressure | **4.41** | 5.48 |
+## Results
 
-**Top features for volume prediction:** 3-day rolling average, day of month, 7-day lag  
-**Top features for pressure prediction:** Current total pressure (0.47), 3-day rolling pressure average (0.20)
+The project successfully:
 
+* Predicted the next day's water volume and water pressure using Random Forest models.
+* Compared feature importance to identify the most useful input data.
+* Compared actual and predicted water volume.
+* Identified active, partially active, and inactive water meters using historical sensor readings.
 
+## Sensor Health Check
 
-## Sensor Health Report
+The project includes a sensor health check based on historical meter readings.
 
-| Status | Count |
-|--------|-------|
-| ✅ Active (Healthy) | 4 meters |
-| ⚠️ Partially Active (Unreliable) | 2 meters |
-| ❌ Inactive (Dead Sensor) | 6 meters |
+Each water meter is classified as:
 
-Dead sensors were automatically detected by a zero-reading ratio threshold — no manual inspection required.
+* **Active** – regularly records non-zero values.
+* **Partially Active** – records zero values more frequently.
+* **Inactive (Dead Sensor)** – only records zero values.
 
+This helps identify meters that may require maintenance or further investigation.
 
+## Technologies Used
 
-## Tech Stack
+* Python
+* pandas
+* NumPy
+* scikit-learn
+* matplotlib
+* Jupyter Notebook
 
-| Tool | Purpose |
-|------|---------|
-| `pandas` | Data loading, cleaning, resampling, merging |
-| `os`, `glob`, `shutil` | File navigation and batch loading |
-| `datetime` | Timestamp parsing and formatting |
-| `scikit-learn` | Random Forest Regressor, train/test split, metrics |
-| `numpy` | Numerical operations |
-| `matplotlib` | Visualisations |
-| `JupyterLab` | Development and documentation |
-| `Excel` | Ground truth validation |
+## Repository Contents
 
+* `Water_Usage_Analysis.ipynb` – Main project notebook
+* `README.md` – Project documentation
 
+## Skills Demonstrated
 
-## Key Learnings
+This project demonstrates skills in:
 
-- Real-world sensor data is messy — inconsistent file names, missing timestamps, and dead sensors are the norm, not the exception
-- Rolling average features were the strongest predictors for volume forecasting
-- Automating sensor health diagnostics is more scalable than manual inspection at any meaningful data volume
-
-
+* Data cleaning
+* Data preparation
+* Feature engineering
+* Time-based feature engineering
+* Machine learning
+* Model evaluation
+* Data visualisation
+* Sensor health analysis
 
 ## Author
 
-**Monica Tenene**  
-BTech in Computer Systems Engineering | Master's Researcher (IAQ Monitoring), CUT  
-[github.com/tenenem](https://github.com/tenenem)
+**Monica Tenene**
+
+BTech in Computer Systems Engineering
+
+GitHub: [https://github.com/tenenem](https://github.com/tenenem)
